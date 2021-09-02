@@ -7,10 +7,10 @@ This project intends to re-wrap the openvino's [Multi Camera Multi Target Demo](
 * docker runtime
 * X Window System display server
 
-## Usage
+## Prepare
 * pull the image
 ```
-docker pull ghcr.io/changtimwu/retail_ovmc_demo
+docker pull ghcr.io/changtimwu/retail_ovmc_demo:main
 ```
 
 * On your Linux desktop, launch `xterm` and use `xhost` command to permit X clients
@@ -18,10 +18,35 @@ docker pull ghcr.io/changtimwu/retail_ovmc_demo
 xhost +
 ```
 
-* the the image
+## Run the image
 ```
-docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media path>:/opt/work --rm retail_ovmc_demo
+docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work --rm retail_ovmc_demo
 ```
+* arguments
+  - `-v work_path`: specify the path where the input video files and output results to be store
+  - `-e DET_MODEL`: specify the detection model
+  - `-e REID_MODEL`: specify the ReID model
+  - `-e video_file`: the video file to be analyzed in `work_path`
+
+## List of models
+* Detection model -- specified with `-e DET_MODEL=`
+  - `person-detection-retail-0013`
+
+* ReID model -- specified with `-e REID_MODEL=`
+  - `person-reidentification-retail-0277`
+  - `person-reidentification-retail-0286`
+  - `person-reidentification-retail-0287`
+  - `person-reidentification-retail-0288`
+
+## Output 
+
+while input video is playing, you're supposed to see the people identifed with colored rectangle and number.  
+
+![Alt text](/screenshots/reidss.png?raw=true "reid screen shot")
+
+`detections.json` and `history_results.json` would be saved into the working directory
+
+
 
 ## Build and Deploy
 * build the image by the command
@@ -29,7 +54,6 @@ docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:r
 make
 ```
 * Proper Github Actions have been setup to automatically build the whole demo as a docker image.  By default, it will publish the result image to github's Container registry.
-
 
 ## Reference
 * the [Dockerfile](https://github.com/openvinotoolkit/docker_ci/blob/master/dockerfiles/ubuntu20/openvino_cgvh_dev_2021.4.dockerfile) of the base image [openvino/ubuntu20_dev](https://hub.docker.com/r/openvino/ubuntu20_dev)`
