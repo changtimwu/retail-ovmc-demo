@@ -1,11 +1,16 @@
 #!/bin/bash
 source ${INTEL_OPENVINO_DIR}/bin/setupvars.sh
-export pdxml="./intel/person-detection-retail-0013/FP32/person-detection-retail-0013.xml"
-export reidxml="./intel/person-reidentification-retail-0277/FP32/person-reidentification-retail-0277.xml"
 
-export infn="PETS09-S2L1-raw.webm"
+[ -z "$DET_MODEL" ] && DET_MODEL="person-detection-retail-0013"
+[ -z "$REID_MODEL" ] && REID_MODEL="person-reidentification-retail-0277"
+[ -z "$video_file" ] && video_file="PETS09-S2L1-raw.webm"
+
+
+export pdxml="./intel/${DET_MODEL}/FP32/${DET_MODEL}.xml"
+export reidxml="./intel/${REID_MODEL}/FP32/${REID_MODEL}.xml"
+
 export workp="/opt/work/"
-export inv="-i $workp/$infn"
+export inv="-i $workp/$video_file"
 export prognm="multi_camera_multi_target_tracking_demo.py"
 export logopts="--history_file $workp/history_results.json --save_detections $workp/detections.json"
 export cfgopts="--config configs/person.py"
