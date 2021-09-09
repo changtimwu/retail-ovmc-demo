@@ -6,7 +6,8 @@ ENV MCMTDIRPY=${MCMTDIR}/python
 ADD intel ${MCMTDIRPY}/intel
 ADD run.sh ${MCMTDIRPY}/
 ADD multi_camera_multi_target_tracking_demo.py $MCMTDIRPY/
-ADD visualization.py $MCMTDIRPY/utils 
+ADD visualization.py $MCMTDIRPY/utils
+ADD configs/* ${MCMTDIRPY}/configs/ 
 WORKDIR ${MCMTDIRPY}
 CMD ${MCMTDIRPY}/run.sh
 
