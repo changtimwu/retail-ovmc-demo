@@ -5,6 +5,8 @@ ENV MCMTDIR=${INTEL_OPENVINO_DIR}/deployment_tools/open_model_zoo/demos/multi_ca
 ENV MCMTDIRPY=${MCMTDIR}/python
 ADD intel ${MCMTDIRPY}/intel
 ADD run.sh ${MCMTDIRPY}/
+ADD multi_camera_multi_target_tracking_demo.py $MCMTDIRPY/
+ADD visualization.py $MCMTDIRPY/utils 
 WORKDIR ${MCMTDIRPY}
 CMD ${MCMTDIRPY}/run.sh
 
