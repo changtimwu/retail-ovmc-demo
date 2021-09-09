@@ -126,7 +126,7 @@ def run(params, config, capture, detector, reid):
     prev_frames = thread_body.frames_queue.get()
     detector.run_async(prev_frames, frame_number)
     presenter = monitors.Presenter(params.utilization_monitors, 0)
-
+    log.info("visualization config={}".format( config.visualization_config))
     while thread_body.process:
         if not params.no_show:
             key = check_pressed_keys(key)
@@ -234,7 +234,7 @@ def main():
     parser.add_argument('--save_detections', type=str, default='', required=False,
                         help='Optional. Path to file in JSON format to save bounding boxes')
     parser.add_argument("--no_show", help="Optional. Don't show output", action='store_true')
-
+    parser.add_argument("--no_show_id", help="Option.  Don't show person ID", action='store_true')
     parser.add_argument('-d', '--device', type=str, default='CPU')
     parser.add_argument('-l', '--cpu_extension',
                         help='MKLDNN (CPU)-targeted custom layers.Absolute \
@@ -253,7 +253,10 @@ def main():
     else:
         log.error('No configuration file specified. Please specify parameter \'--config\'')
         sys.exit(1)
-
+    log.info( 'args={}'.format(args))
+    log.info( 'config={}'.format(config))
+    if args.no_show_id:
+        config.visualization_config.show_id=False
     random.seed(config.random_seed)
     capture = MulticamCapture(args.input, args.loop)
 

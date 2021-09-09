@@ -40,6 +40,7 @@ normalizer_config = namespace(
 
 visualization_config = namespace(
     show_all_detections=True,
+    show_id=True,
     max_window_size=(1280,720),
     stack_frames='vertical'
 )

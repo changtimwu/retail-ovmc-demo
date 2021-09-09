@@ -27,6 +27,8 @@ docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:r
   - `-e DET_MODEL`: specify the detection model
   - `-e REID_MODEL`: specify the ReID model
   - `-e video_file`: the video file to be analyzed in `work_path`
+* optional arguments
+  - `-e no_show_id=1`: show only the bounding box without the identification number
 
 ## List of models
 * Detection model -- specified with `-e DET_MODEL=`
