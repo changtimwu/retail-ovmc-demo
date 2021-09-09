@@ -18,7 +18,7 @@ import os
 from utils.misc import COLOR_PALETTE
 
 
-def draw_detections(frame, detections, show_all_detections=True):
+def draw_detections(frame, detections, show_all_detections=True, show_id=True):
     """Draws detections and labels"""
     for i, obj in enumerate(detections):
         left, top, right, bottom = obj.rect
@@ -29,7 +29,7 @@ def draw_detections(frame, detections, show_all_detections=True):
         if show_all_detections or id >= 0:
             cv.rectangle(frame, (left, top), (right, bottom), box_color, thickness=3)
 
-        if id >= 0:
+        if show_id and id >= 0:
             label = 'ID {}'.format(label) if not isinstance(label, str) else label
             label_size, base_line = cv.getTextSize(label, cv.FONT_HERSHEY_SIMPLEX, 1, 2)
             top = max(top, label_size[1])
@@ -65,12 +65,12 @@ def get_target_size(frame_sizes, vis=None, max_window_size=(1920, 1080), stack_f
 
 
 def visualize_multicam_detections(frames, all_objects, fps='', show_all_detections=True,
-                                  max_window_size=(1920, 1080), stack_frames='vertical'):
+                                  max_window_size=(1920, 1080), stack_frames='vertical', show_id=True):
     assert len(frames) == len(all_objects)
     assert stack_frames in ['vertical', 'horizontal']
     vis = None
     for i, (frame, objects) in enumerate(zip(frames, all_objects)):
-        draw_detections(frame, objects, show_all_detections)
+        draw_detections(frame, objects, show_all_detections, show_id)
         if vis is not None:
             if stack_frames == 'vertical':
                 vis = np.vstack([vis, frame])
