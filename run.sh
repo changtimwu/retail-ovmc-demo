@@ -31,10 +31,16 @@ form_vsrcs_args() {
 export inv="-i $(form_vsrcs_args $video_file)"
 export prognm="multi_camera_multi_target_tracking_demo.py"
 export logopts="--history_file $workp/history_results.json --save_detections $workp/detections.json"
-export cfgopts="--config configs/person.py"
+cfgdir="./configs/"
+if [ -d $workp/configs/ ]; then
+    echo "found custom config directory"
+    cfgdir="$workp/configs"
+fi
+export cfgopts="--config $cfgdir/person.py"
 export miscopts=""
 [ -n "$no_show_id" ] && miscopts+="--no_show_id"
-ls -al
+pwd
+echo "python3 $prognm $inv -m $pdxml --m_reid $reidxml $logopts $cfgopts $miscopts"
 python3 $prognm $inv -m $pdxml --m_reid $reidxml $logopts $cfgopts $miscopts
 
 

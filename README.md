@@ -41,10 +41,29 @@ docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:r
 
 ```
 
+## Custom configs
+* Create a directory named `configs` in your `work_path`
+* take `configs/person.py` in this repo as a template and copy it into the `work_path/configs/`
+* now you can customize it.  For example, you can enable the analyzer
+``` py
+analyzer = namespace(
+    enable=True,
+    show_distances=True,
+    save_distances='',
+    concatenate_imgs_with_distances=True,
+    plot_timeline_freq=0,
+    save_timeline='',
+    crop_size=(32, 64)
+)
+```
+the analyzer window would pop up
+![Alt text](/screenshots/mcmtp_analyzer.png?raw=true "analyzer screen shot")
+
+
+
 ## List of models
 * Detection model -- specified with `-e DET_MODEL=`
   - `person-detection-retail-0013`
-
 * ReID model -- specified with `-e REID_MODEL=`
   - `person-reidentification-retail-0277`
   - `person-reidentification-retail-0286`
