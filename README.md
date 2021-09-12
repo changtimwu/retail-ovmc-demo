@@ -26,7 +26,7 @@ xhost +
   - `-v work_path`: specify the path where the input video files and output results to be store
   - `-e DET_MODEL`: specify the detection model
   - `-e REID_MODEL`: specify the ReID model
-  - `-e video_file`: the video file to be analyzed in `work_path`
+  - `-e video_file`: the video files to be analyzed in `work_path` or video source in URL form
 * optional arguments
   - `-e no_show_id=1`: show only the bounding box without the identification number
 
@@ -35,9 +35,9 @@ xhost +
 ```
 docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work -e video_file=abc.mp4 --rm retail_ovmc_demo
 ```
-* analyze a RTSP stream
+* analyze multiple RTSP streams
 ```
-docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work -e video_file=rtsp://user:password@192.168.1.12/stream2 --rm retail_ovmc_demo
+docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work -e video_file="rtsp://user:password@192.168.1.12/stream2,rtsp://user:password@192.168.1.13/stream2" --rm retail_ovmc_demo
 
 ```
 
