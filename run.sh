@@ -1,4 +1,9 @@
 #!/bin/bash
+is_url() {
+    regex='(https?|http|file|rtsp)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    [[ $1 =~ $regex ]]
+}
+
 source ${INTEL_OPENVINO_DIR}/bin/setupvars.sh
 
 [ -z "$DET_MODEL" ] && DET_MODEL="person-detection-retail-0013"
@@ -9,7 +14,13 @@ export pdxml="./intel/${DET_MODEL}/FP32/${DET_MODEL}.xml"
 export reidxml="./intel/${REID_MODEL}/FP32/${REID_MODEL}.xml"
 
 export workp="/opt/work/"
-export inv="-i $workp/$video_file"
+if is_url $video_file; then
+    inv="-i $video_file"
+else
+    inv="-i $workp/$video_file"
+fi
+
+export inv
 export prognm="multi_camera_multi_target_tracking_demo.py"
 export logopts="--history_file $workp/history_results.json --save_detections $workp/detections.json"
 export cfgopts="--config configs/person.py"

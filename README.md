@@ -19,9 +19,9 @@ xhost +
 ```
 
 ## Run the image
-```
-docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work --rm retail_ovmc_demo
-```
+* fixed arguments
+  - `-e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw`: make X server transparent between host and containers 
+
 * arguments
   - `-v work_path`: specify the path where the input video files and output results to be store
   - `-e DET_MODEL`: specify the detection model
@@ -29,6 +29,17 @@ docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:r
   - `-e video_file`: the video file to be analyzed in `work_path`
 * optional arguments
   - `-e no_show_id=1`: show only the bounding box without the identification number
+
+## Examples
+* analyze a mp4 file
+```
+docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work -e video_file=abc.mp4 --rm retail_ovmc_demo
+```
+* analyze a RTSP stream
+```
+docker run -itu root -e DISPLAY=:0 --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw --name openvino_multicam_reid -v <your media/save path>:/opt/work -e video_file=rtsp://user:password@192.168.1.12/stream2 --rm retail_ovmc_demo
+
+```
 
 ## List of models
 * Detection model -- specified with `-e DET_MODEL=`
