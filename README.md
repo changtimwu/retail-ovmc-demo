@@ -88,5 +88,6 @@ make
 * Proper Github Actions have been setup to automatically build the whole demo as a docker image.  By default, it will publish the result image to github's Container registry.
 
 ## Reference
+* [MCMT demo source repo](https://github.com/openvinotoolkit/open_model_zoo/tree/master/demos/multi_camera_multi_target_tracking_demo/python)
 * the [Dockerfile](https://github.com/openvinotoolkit/docker_ci/blob/master/dockerfiles/ubuntu20/openvino_cgvh_dev_2021.4.dockerfile) of the base image [openvino/ubuntu20_dev](https://hub.docker.com/r/openvino/ubuntu20_dev)`
 
