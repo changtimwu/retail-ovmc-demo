@@ -29,6 +29,7 @@ form_vsrcs_args() {
 }
 
 export inv="-i $(form_vsrcs_args $video_file)"
+echo "inv=$inv"
 export prognm="multi_camera_multi_target_tracking_demo.py"
 export logopts="--history_file $workp/history_results.json --save_detections $workp/detections.json"
 cfgdir="./configs/"
